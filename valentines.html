@@ -12,18 +12,54 @@
         }
 
         body {
-            background: #be1e2d;
+            background: #0a0a2e;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: 'Segoe UI', Impact, 'Arial Black', Tahoma, sans-serif;
             color: #fff;
             overflow: hidden;
+            position: relative;
         }
 
-        /* ── Hearts container: hidden until envelope is opened ── */
+        /* ── Neon grid background ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(rgba(255, 0, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.07) 1px, transparent 1px);
+            background-size:
+                80px 80px,
+                80px 80px,
+                20px 20px,
+                20px 20px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Horizon glow */
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(255, 0, 255, 0.12), transparent);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── Balloons container: hidden until envelope is opened ── */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -44,18 +80,19 @@
             font-size: 2rem;
             opacity: 0.6;
             animation: float 6s ease-in infinite;
+            filter: drop-shadow(0 0 6px currentColor);
         }
 
-        .heart:nth-child(1)  { left: 5%;  font-size: 1.5rem; animation-delay: 0s;   animation-duration: 7s; }
-        .heart:nth-child(2)  { left: 15%; font-size: 2.5rem; animation-delay: 1s;   animation-duration: 5s; }
-        .heart:nth-child(3)  { left: 25%; font-size: 1.8rem; animation-delay: 2s;   animation-duration: 8s; }
-        .heart:nth-child(4)  { left: 35%; font-size: 3rem;   animation-delay: 0.5s; animation-duration: 6s; }
-        .heart:nth-child(5)  { left: 45%; font-size: 2rem;   animation-delay: 3s;   animation-duration: 7s; }
-        .heart:nth-child(6)  { left: 55%; font-size: 1.6rem; animation-delay: 1.5s; animation-duration: 5.5s; }
-        .heart:nth-child(7)  { left: 65%; font-size: 2.8rem; animation-delay: 2.5s; animation-duration: 6.5s; }
-        .heart:nth-child(8)  { left: 75%; font-size: 2rem;   animation-delay: 0.8s; animation-duration: 8s; }
-        .heart:nth-child(9)  { left: 85%; font-size: 1.4rem; animation-delay: 3.5s; animation-duration: 5s; }
-        .heart:nth-child(10) { left: 95%; font-size: 2.2rem; animation-delay: 1.2s; animation-duration: 7.5s; }
+        .heart:nth-child(1)  { left: 5%;  font-size: 1.5rem; animation-delay: 0s;   animation-duration: 7s;   color: #ff00ff; }
+        .heart:nth-child(2)  { left: 15%; font-size: 2.5rem; animation-delay: 1s;   animation-duration: 5s;   color: #00ffff; }
+        .heart:nth-child(3)  { left: 25%; font-size: 1.8rem; animation-delay: 2s;   animation-duration: 8s;   color: #ff6ec7; }
+        .heart:nth-child(4)  { left: 35%; font-size: 3rem;   animation-delay: 0.5s; animation-duration: 6s;   color: #ffff00; }
+        .heart:nth-child(5)  { left: 45%; font-size: 2rem;   animation-delay: 3s;   animation-duration: 7s;   color: #ff00ff; }
+        .heart:nth-child(6)  { left: 55%; font-size: 1.6rem; animation-delay: 1.5s; animation-duration: 5.5s; color: #00ffff; }
+        .heart:nth-child(7)  { left: 65%; font-size: 2.8rem; animation-delay: 2.5s; animation-duration: 6.5s; color: #ff6ec7; }
+        .heart:nth-child(8)  { left: 75%; font-size: 2rem;   animation-delay: 0.8s; animation-duration: 8s;   color: #ffff00; }
+        .heart:nth-child(9)  { left: 85%; font-size: 1.4rem; animation-delay: 3.5s; animation-duration: 5s;   color: #ff00ff; }
+        .heart:nth-child(10) { left: 95%; font-size: 2.2rem; animation-delay: 1.2s; animation-duration: 7.5s; color: #00ffff; }
 
         @keyframes float {
             0% {
@@ -63,10 +100,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.6;
+                opacity: 0.7;
             }
             90% {
-                opacity: 0.6;
+                opacity: 0.7;
             }
             100% {
                 transform: translateY(-10vh) rotate(360deg);
@@ -85,7 +122,7 @@
         }
 
         .envelope-wrapper:focus {
-            outline: 3px solid rgba(255, 255, 255, 0.8);
+            outline: 3px solid rgba(0, 255, 255, 0.8);
             outline-offset: 8px;
             border-radius: 4px;
         }
@@ -95,6 +132,8 @@
             font-size: 1rem;
             opacity: 0.85;
             transition: opacity 0.4s;
+            color: #ff6ec7;
+            text-shadow: 0 0 8px #ff6ec7;
         }
 
         .envelope-wrapper.opened .envelope-hint {
@@ -121,10 +160,11 @@
             bottom: 0;
             width: 100%;
             height: 70%;
-            background: #f5e6c8;
+            background: #1a1a3e;
+            border: 1px solid rgba(255, 0, 255, 0.4);
             border-radius: 0 0 8px 8px;
             z-index: 2;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 20px rgba(255, 0, 255, 0.3), inset 0 0 15px rgba(255, 0, 255, 0.05);
         }
 
         /* Flap (triangle) */
@@ -134,7 +174,7 @@
             left: 0;
             width: 100%;
             height: 55%;
-            background: #e8d5a8;
+            background: #12122e;
             clip-path: polygon(0 0, 50% 100%, 100% 0);
             z-index: 4;
             transform-origin: top center;
@@ -152,12 +192,12 @@
             left: 0;
             width: 100%;
             height: 55%;
-            background: #d4b985;
+            background: #1e1e4a;
             clip-path: polygon(0 0, 50% 100%, 100% 0);
             z-index: 1;
         }
 
-        /* Heart seal on the flap */
+        /* Balloon seal on the flap */
         .envelope-seal {
             position: absolute;
             top: 18%;
@@ -166,6 +206,7 @@
             font-size: 1.8rem;
             z-index: 5;
             transition: opacity 0.3s;
+            filter: drop-shadow(0 0 8px #ff00ff);
         }
 
         .envelope-wrapper.opened .envelope-seal {
@@ -179,14 +220,15 @@
             bottom: 5%;
             transform: translateX(-50%) translateY(0);
             width: 85%;
-            background: #fff;
+            background: #0d0d2b;
+            border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 6px;
             padding: 1.25rem 1rem;
             z-index: 3;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0, 255, 255, 0.2);
             transition: transform 0.7s ease 0.4s, opacity 0.5s ease 0.4s;
             opacity: 0;
-            color: #333;
+            color: #ddd;
             text-align: center;
             max-height: 120px;
             overflow: hidden;
@@ -218,21 +260,52 @@
 
         .letter h2 {
             font-size: 1.05rem;
-            color: #be1e2d;
+            color: #ff00ff;
             margin-bottom: 0.3rem;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            animation: neonFlicker 3s ease-in-out infinite;
         }
 
         .letter p {
             font-size: 0.8rem;
             line-height: 1.4;
-            color: #555;
+            color: #aaa;
         }
 
-        /* ── Pulse heart on letter ── */
+        /* ── Neon flicker animation on title ── */
+        @keyframes neonFlicker {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+            }
+            5% {
+                opacity: 0.85;
+                text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+            }
+            10% {
+                opacity: 1;
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+            }
+            55% {
+                opacity: 0.9;
+                text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff;
+            }
+            60% {
+                opacity: 1;
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+            }
+        }
+
+        /* ── Pulse balloon on letter ── */
         .letter-heart {
             font-size: 1.4rem;
             display: inline-block;
             animation: pulse 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 6px #00ffff);
         }
 
         @keyframes pulse {
@@ -242,18 +315,18 @@
     </style>
 </head>
 <body>
-    <!-- Floating hearts (hidden until envelope opens) -->
+    <!-- Floating neon balloons (hidden until envelope opens) -->
     <div class="hearts-container" id="heartsContainer">
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
-        <span class="heart">&hearts;</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
+        <span class="heart">🎈</span>
     </div>
 
     <!-- Envelope -->
@@ -266,7 +339,7 @@
     >
         <div class="envelope">
             <div class="envelope-flap"></div>
-            <span class="envelope-seal">&hearts;</span>
+            <span class="envelope-seal">🎈</span>
             <div class="envelope-inner"></div>
             <div class="envelope-body"></div>
 
@@ -274,7 +347,7 @@
             <div class="letter">
                 <div class="letter-to">To: You</div>
                 <div class="letter-from">From: Someone who cares</div>
-                <h2>Happy Valentine's Day <span class="letter-heart">&hearts;</span></h2>
+                <h2>Happy Valentine's Day <span class="letter-heart">🎈</span></h2>
                 <p>Wishing you love and happiness</p>
             </div>
         </div>
