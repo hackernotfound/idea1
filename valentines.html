@@ -12,7 +12,7 @@
         }
 
         body {
-            background: red;
+            background: #be1e2d;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,17 +23,7 @@
             overflow: hidden;
         }
 
-        h1 {
-            font-size: 3rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1.25rem;
-            opacity: 0.9;
-        }
-
+        /* ── Hearts container: hidden until envelope is opened ── */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -42,6 +32,11 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
+            display: none;
+        }
+
+        .hearts-container.active {
+            display: block;
         }
 
         .heart {
@@ -79,16 +74,164 @@
             }
         }
 
-        .content {
+        /* ── Envelope ── */
+        .envelope-wrapper {
             position: relative;
             z-index: 1;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
         }
 
-        .big-heart {
-            font-size: 6rem;
-            display: block;
-            margin-bottom: 1rem;
+        .envelope-wrapper:focus {
+            outline: 3px solid rgba(255, 255, 255, 0.8);
+            outline-offset: 8px;
+            border-radius: 4px;
+        }
+
+        .envelope-hint {
+            margin-top: 1.25rem;
+            font-size: 1rem;
+            opacity: 0.85;
+            transition: opacity 0.4s;
+        }
+
+        .envelope-wrapper.opened .envelope-hint {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .envelope {
+            position: relative;
+            width: 260px;
+            height: 180px;
+        }
+
+        @media (max-width: 400px) {
+            .envelope {
+                width: 220px;
+                height: 155px;
+            }
+        }
+
+        /* Envelope body */
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70%;
+            background: #f5e6c8;
+            border-radius: 0 0 8px 8px;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+
+        /* Flap (triangle) */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 55%;
+            background: #e8d5a8;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            z-index: 4;
+            transform-origin: top center;
+            transition: transform 0.6s ease;
+        }
+
+        .envelope-wrapper.opened .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        /* Inner V shape behind the flap */
+        .envelope-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 55%;
+            background: #d4b985;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            z-index: 1;
+        }
+
+        /* Heart seal on the flap */
+        .envelope-seal {
+            position: absolute;
+            top: 18%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.8rem;
+            z-index: 5;
+            transition: opacity 0.3s;
+        }
+
+        .envelope-wrapper.opened .envelope-seal {
+            opacity: 0;
+        }
+
+        /* ── Letter ── */
+        .letter {
+            position: absolute;
+            left: 50%;
+            bottom: 5%;
+            transform: translateX(-50%) translateY(0);
+            width: 85%;
+            background: #fff;
+            border-radius: 6px;
+            padding: 1.25rem 1rem;
+            z-index: 3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.7s ease 0.4s, opacity 0.5s ease 0.4s;
+            opacity: 0;
+            color: #333;
+            text-align: center;
+            max-height: 120px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 400px) {
+            .letter {
+                padding: 1rem 0.75rem;
+                max-height: 105px;
+            }
+        }
+
+        .envelope-wrapper.opened .letter {
+            transform: translateX(-50%) translateY(-105%);
+            opacity: 1;
+        }
+
+        .letter-to,
+        .letter-from {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #888;
+            margin-bottom: 0.25rem;
+        }
+
+        .letter-from {
+            margin-bottom: 0.6rem;
+        }
+
+        .letter h2 {
+            font-size: 1.05rem;
+            color: #be1e2d;
+            margin-bottom: 0.3rem;
+        }
+
+        .letter p {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #555;
+        }
+
+        /* ── Pulse heart on letter ── */
+        .letter-heart {
+            font-size: 1.4rem;
+            display: inline-block;
             animation: pulse 1.5s ease-in-out infinite;
         }
 
@@ -99,22 +242,67 @@
     </style>
 </head>
 <body>
-    <div class="hearts-container">
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
-        <span class="heart">❤</span>
+    <!-- Floating hearts (hidden until envelope opens) -->
+    <div class="hearts-container" id="heartsContainer">
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
+        <span class="heart">&hearts;</span>
     </div>
-    <div class="content">
-        <span class="big-heart">❤️</span>
-        <h1>Happy Valentine's Day</h1>
-        <p>Wishing you love and happiness</p>
+
+    <!-- Envelope -->
+    <div
+        class="envelope-wrapper"
+        id="envelope"
+        role="button"
+        tabindex="0"
+        aria-label="Open the valentine envelope"
+    >
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+            <span class="envelope-seal">&hearts;</span>
+            <div class="envelope-inner"></div>
+            <div class="envelope-body"></div>
+
+            <!-- Letter inside -->
+            <div class="letter">
+                <div class="letter-to">To: You</div>
+                <div class="letter-from">From: Someone who cares</div>
+                <h2>Happy Valentine's Day <span class="letter-heart">&hearts;</span></h2>
+                <p>Wishing you love and happiness</p>
+            </div>
+        </div>
+        <span class="envelope-hint">Tap to open</span>
     </div>
+
+    <script>
+        (function () {
+            var envelope = document.getElementById('envelope');
+            var hearts = document.getElementById('heartsContainer');
+            var opened = false;
+
+            function openEnvelope() {
+                if (opened) return;
+                opened = true;
+                envelope.classList.add('opened');
+                envelope.setAttribute('aria-label', 'Valentine envelope is open');
+                hearts.classList.add('active');
+            }
+
+            envelope.addEventListener('click', openEnvelope);
+            envelope.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openEnvelope();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
