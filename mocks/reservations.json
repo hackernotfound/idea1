@@ -1,0 +1,152 @@
+[
+  {
+    "id": "RES-001",
+    "customerName": "Alice Johnson",
+    "partySize": 2,
+    "tableNumber": 5,
+    "date": "2026-02-20",
+    "timeSlot": "18:00",
+    "status": "confirmed",
+    "specialRequests": "Window seat preferred"
+  },
+  {
+    "id": "RES-002",
+    "customerName": "Bob Martinez",
+    "partySize": 4,
+    "tableNumber": 12,
+    "date": "2026-02-20",
+    "timeSlot": "19:30",
+    "status": "pending",
+    "specialRequests": ""
+  },
+  {
+    "id": "RES-003",
+    "customerName": "Catherine Lee",
+    "partySize": 6,
+    "tableNumber": 8,
+    "date": "2026-02-21",
+    "timeSlot": "20:00",
+    "status": "confirmed",
+    "specialRequests": "Birthday celebration — need a cake brought out at 8:30 PM"
+  },
+  {
+    "id": "RES-004",
+    "customerName": "David Kim",
+    "partySize": 3,
+    "tableNumber": 2,
+    "date": "2026-02-21",
+    "timeSlot": "17:30",
+    "status": "cancelled",
+    "specialRequests": "Gluten-free menu required"
+  },
+  {
+    "id": "RES-005",
+    "customerName": "Emily Chen",
+    "partySize": 2,
+    "tableNumber": 14,
+    "date": "2026-02-22",
+    "timeSlot": "12:00",
+    "status": "confirmed",
+    "specialRequests": "High chair for toddler"
+  },
+  {
+    "id": "RES-006",
+    "customerName": "Frank Nguyen",
+    "partySize": 8,
+    "tableNumber": 20,
+    "date": "2026-02-22",
+    "timeSlot": "19:00",
+    "status": "pending",
+    "specialRequests": "Private dining area if available"
+  },
+  {
+    "id": "RES-007",
+    "customerName": "Grace Patel",
+    "partySize": 5,
+    "tableNumber": 10,
+    "date": "2026-02-23",
+    "timeSlot": "18:30",
+    "status": "confirmed",
+    "specialRequests": ""
+  },
+  {
+    "id": "RES-008",
+    "customerName": "Henry Dubois",
+    "partySize": 2,
+    "tableNumber": 3,
+    "date": "2026-02-23",
+    "timeSlot": "20:30",
+    "status": "cancelled",
+    "specialRequests": "Allergic to shellfish"
+  },
+  {
+    "id": "RES-009",
+    "customerName": "Isabella Torres",
+    "partySize": 4,
+    "tableNumber": 7,
+    "date": "2026-02-24",
+    "timeSlot": "13:00",
+    "status": "pending",
+    "specialRequests": "Vegetarian menu for the whole party"
+  },
+  {
+    "id": "RES-010",
+    "customerName": "James O'Brien",
+    "partySize": 6,
+    "tableNumber": 15,
+    "date": "2026-02-24",
+    "timeSlot": "19:00",
+    "status": "confirmed",
+    "specialRequests": "Anniversary dinner — quiet table please"
+  },
+  {
+    "id": "RES-011",
+    "customerName": "Karen Yamamoto",
+    "partySize": 3,
+    "tableNumber": 9,
+    "date": "2026-02-25",
+    "timeSlot": "18:00",
+    "status": "confirmed",
+    "specialRequests": ""
+  },
+  {
+    "id": "RES-012",
+    "customerName": "Liam Wilson",
+    "partySize": 2,
+    "tableNumber": 1,
+    "date": "2026-02-25",
+    "timeSlot": "21:00",
+    "status": "pending",
+    "specialRequests": "Late seating — arriving from a show"
+  },
+  {
+    "id": "RES-013",
+    "customerName": "Mia Rodriguez",
+    "partySize": 10,
+    "tableNumber": 22,
+    "date": "2026-02-26",
+    "timeSlot": "19:30",
+    "status": "confirmed",
+    "specialRequests": "Large group — need tables pushed together"
+  },
+  {
+    "id": "RES-014",
+    "customerName": "Nathan Brooks",
+    "partySize": 1,
+    "tableNumber": 4,
+    "date": "2026-02-26",
+    "timeSlot": "12:30",
+    "status": "cancelled",
+    "specialRequests": ""
+  },
+  {
+    "id": "RES-015",
+    "customerName": "Olivia Singh",
+    "partySize": 4,
+    "tableNumber": 11,
+    "date": "2026-02-27",
+    "timeSlot": "18:00",
+    "status": "pending",
+    "specialRequests": "Nut allergy — please flag kitchen"
+  }
+]
